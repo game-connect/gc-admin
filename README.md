@@ -1,0 +1,2 @@
+# gc-admin
+Game ConnectのAdminサーバー。
