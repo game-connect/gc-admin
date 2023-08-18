@@ -18,7 +18,7 @@ services:
       - ./.docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
       - ./.docker/db/sql:/docker-entrypoint-initdb.d
     ports:
-      - "3308:3306"
+      - "3309:3306"
     tty: true
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
@@ -37,7 +37,7 @@ services:
     volumes:
       - .:/var/www/app
     ports:
-      - "8005:8000"
+      - "8006:8000"
     tty: true
     depends_on:
       admindb:
