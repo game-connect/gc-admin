@@ -10,7 +10,7 @@ docker compose -f docker-compose.local.yml up -d --build
 ```
 2.モジュールをインストール
 ```
-docker compose -f docker-compose.local.yml exec swoole composer install
+docker compose -f docker-compose.local.yml exec swoole composer install --ignore-platform-reqs
 ```
 3.Octaneをスタート
 ```
