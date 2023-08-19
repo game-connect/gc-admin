@@ -11,8 +11,6 @@ docker compose -f docker-compose.local.yml up -d --build
 2.モジュールをインストール
 ```
 docker compose -f docker-compose.local.yml exec swoole composer install --ignore-platform-reqs
-docker compose -f docker-compose.local.yml exec node npm install
-docker compose -f docker-compose.local.yml exec node npm run build
 ```
 3.Octaneをスタート
 ```
