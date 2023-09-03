@@ -13,9 +13,6 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    {{ __('You are logged in!') }}
-
                     <!-- 登録フォーム -->
                     <form method="POST">
                         @csrf
@@ -33,10 +30,11 @@
                             <div class="form-group col-md-4">
                                 <label for="platform">{{ __('Genre') }}</label>
                                 <select id="genre" class="form-control @error('genre') is-invalid @enderror" name="genre" required>
-                                    <option value="Action" {{ old('genre') == 'Action' ? 'selected' : '' }}>Action</option>
-                                    <option value="Adventure" {{ old('genre') == 'Adventure' ? 'selected' : '' }}>Adventure</option>
-                                    <option value="Role-playing" {{ old('genre') == 'Role-playing' ? 'selected' : '' }}>Role-playing</option>
-                                    <option value="Sports" {{ old('genre') == 'Sports' ? 'selected' : '' }}>Sports</option>
+                                    @if(isset($response["genres"]))
+                                        @foreach($response["genres"]["items"]["list"] as $genre)
+                                            <option value="{{ $genre['genre_key'] }}">{{ $genre["name"] }}</option>
+                                        @endforeach         
+                                    @endif
                                 </select>
 
                                 @error('platform')
