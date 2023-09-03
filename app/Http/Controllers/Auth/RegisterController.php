@@ -65,6 +65,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
+            'admin_user_key' => uniqid("gcadmin"),
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
