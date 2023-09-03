@@ -64,11 +64,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $adminUser = $this->callRegisterAdminUserApi($data['name'], $data['email'], $data['password']);
+        $adminRegister = $this->callRegisterAdminUserApi($data['name'], $data['email'], $data['password']);
+        $adminLogin = $this->callLoginAdminUserApi($data['email'], $data['password']);
 
         return User::create([
-            'admin_user_key' => $adminUser["items"]["admin_user_key"],
-            'token' => "",
+            'admin_user_key' => $adminRegister["items"]["admin_user_key"],
+            'token' => $adminLogin["items"]["token"],
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
@@ -80,6 +81,39 @@ class RegisterController extends Controller
         $url = env("GC_GAME_URL") . "/admin/register_admin_user";
         $data = [
             "name" => $name,
+            "email" => $email,
+            "password" => $password,
+        ];
+        
+        $jsonData = json_encode($data);
+        
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+        ]);
+
+        $response = curl_exec($ch);
+        if ($response === false) {
+            die('cURLエラー: ' . curl_error($ch));
+        }
+
+        curl_close($ch);
+
+        $decodedResponse = json_decode($response, true);
+        if ($decodedResponse === null) {
+            die('JSONデコードエラー: ' . json_last_error_msg());
+        }
+
+        return $decodedResponse;
+    }
+
+    private function callLoginAdminUserApi($email, $password)
+    {
+        $url = env("GC_GAME_URL") . "/admin/login_admin_user";
+        $data = [
             "email" => $email,
             "password" => $password,
         ];
