@@ -43,6 +43,52 @@
                                     </span>
                                 @enderror
                             </div>
+                            <div class="form-group col-md-8 mt-3"></div> 
+                            <div class="form-group col-md-12">
+                                <label for="game_name">{{ __('Setting') }}</label>
+                                <table id="perfume" class="table">
+                                    <tr>
+                                        <td class="text-center">{{  __('Score') }}</td>
+                                        <td class="text-center">
+                                            <div class="form-switch">
+                                                <input class="form-check-input" type="checkbox" name="score" value="true"> 
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">{{  __('Combo') }}</td>
+                                        <td class="text-center">
+                                            <div class="form-switch">
+                                                <input class="form-check-input" type="checkbox" name="combo" value="true"> 
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">{{  __('Rank') }}</td>
+                                        <td class="text-center">
+                                            <div class="form-switch">
+                                                <input class="form-check-input" type="checkbox" name="rank" value="true"> 
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">{{  __('Time') }}</td>
+                                        <td class="text-center">
+                                            <div class="form-switch">
+                                                <input class="form-check-input" type="checkbox" name="time" value="true"> 
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">{{  __('Image') }}</td>
+                                        <td class="text-center">
+                                            <div class="form-switch">
+                                                <input class="form-check-input" type="checkbox" name="Image" value="true"> 
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                             <div class="form-group col-md-8 mt-3"></div>  
                             <div class="form-group col-md-4 mt-3">
                                 <button type="submit" class="btn btn-primary form-control">
