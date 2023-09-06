@@ -37,7 +37,6 @@ class HomeController extends Controller
         $user = \Auth::user();
         $data = $request->all();
 
-        //dd($data["game_image_base64"]);
         $json = [
             "game_title" => $data["game_title"],
             "game_image" => $data["game_image_base64"],
