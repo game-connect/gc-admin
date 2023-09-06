@@ -23,10 +23,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // ジャンル
-        $genreList = $this->callGetApi("/genre/list_genre");
+        $user = \Auth::user();
+        $genreList = $this->callGetApi("/genre/list_genre", null);
+        $gameList = $this->callGetApi("/link_game/" . $user["admin_user_key"] . "/list_game", $user["token"]);
+
         $response = [
-            "genres" => $genreList
+            "genres" => $genreList,
+            "games" => $gameList
         ];
 
         return view('home', compact('response'));
@@ -52,20 +55,26 @@ class HomeController extends Controller
 
         $createGame = $this->callPostApi("/link_game/" . $user["admin_user_key"] . "/create_game", $user["token"], $json);
 
-        // ジャンル
-        $genreList = $this->callGetApi("/genre/list_genre");
+        $genreList = $this->callGetApi("/genre/list_genre", null);
+        $gameList = $this->callGetApi("/link_game/" . $user["admin_user_key"] . "/list_game", $user["token"]);
+
         $response = [
-            "genres" => $genreList
+            "genres" => $genreList,
+            "games" => $gameList
         ];
 
         return redirect('home')->with($response);
     }
 
-    private function callGetApi($path)
+    private function callGetApi($path, $token)
     {
         $url = env("GC_GAME_URL") . $path;
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Authorization: ' . $token,
+        ]);
         
         $response = curl_exec($ch);
         if ($response === false) {
